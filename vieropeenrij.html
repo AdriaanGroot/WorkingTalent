@@ -14,20 +14,39 @@
             height: 35px;
         }
 
-        td:hover {
+        td.blue:hover {
             background-color: lightblue;
+        }
+
+        td.red:hover {
+            background-color: lightcoral;
         }
     </style>
 
     <script>
         var stonesInColumn = [0, 0, 0];
         var maxStones = 2;
+        var colours = ["blue", "red"];
+        var playerCount = 0;
         function changeColour(cellId) {
             var column = cellId[1];
             var row = stonesInColumn[column];
             if (row < maxStones) {
-                document.getElementById(row + column).style.backgroundColor = "blue";
+                document.getElementById(row + column).style.backgroundColor = colours[playerCount % 2];
+                if (playerCount % 2 == 0) {
+                    var blueHovers = document.getElementsByClassName("blue");
+                    while (blueHovers.length > 0) {
+                        blueHovers[0].className = "red";
+                    }
+                }
+                else if (playerCount % 2 == 1) {
+                    var redHovers = document.getElementsByClassName("red");
+                    while (redHovers.length > 0) {
+                        redHovers[0].className = "blue";
+                    }
+                }
                 stonesInColumn[column] += 1;
+                playerCount += 1;
             }
         }
     </script>
@@ -37,14 +56,14 @@
 <body>
     <table>
         <tr>
-            <td id="10" onclick="changeColour(this.id)"> </td>
-            <td id="11" onclick="changeColour(this.id)"> </td>
-            <td id="12" onclick="changeColour(this.id)"> </td>
+            <td id="10" class="blue" onclick="changeColour(this.id)"> </td>
+            <td id="11" class="blue" onclick="changeColour(this.id)"> </td>
+            <td id="12" class="blue" onclick="changeColour(this.id)"> </td>
         </tr>
         <tr>
-            <td id="00" onclick="changeColour(this.id)"> </td>
-            <td id="01" onclick="changeColour(this.id)"> </td>
-            <td id="02" onclick="changeColour(this.id)"> </td>
+            <td id="00" class="blue" onclick="changeColour(this.id)"> </td>
+            <td id="01" class="blue" onclick="changeColour(this.id)"> </td>
+            <td id="02" class="blue" onclick="changeColour(this.id)"> </td>
         </tr>
     </table>
 </body>
