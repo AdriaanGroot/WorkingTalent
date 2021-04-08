@@ -13,21 +13,38 @@
             width: 50px;
             height: 35px;
         }
+
+        td:hover {
+            background-color: lightblue;
+        }
     </style>
+
+    <script>
+        var stonesInColumn = [0, 0, 0];
+        var maxStones = 2;
+        function changeColour(cellId) {
+            var column = cellId[1];
+            var row = stonesInColumn[column];
+            if (row < maxStones) {
+                document.getElementById(row + column).style.backgroundColor = "blue";
+                stonesInColumn[column] += 1;
+            }
+        }
+    </script>
 
 </head>
 
 <body>
     <table>
         <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
+            <td id="10" onclick="changeColour(this.id)"> </td>
+            <td id="11" onclick="changeColour(this.id)"> </td>
+            <td id="12" onclick="changeColour(this.id)"> </td>
         </tr>
         <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
+            <td id="00" onclick="changeColour(this.id)"> </td>
+            <td id="01" onclick="changeColour(this.id)"> </td>
+            <td id="02" onclick="changeColour(this.id)"> </td>
         </tr>
     </table>
 </body>
