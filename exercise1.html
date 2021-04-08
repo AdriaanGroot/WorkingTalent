@@ -1,0 +1,29 @@
+<!-- Exercise 1 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function checkinputfield() {
+            var input_val = document.getElementById("inputfield").value;
+            if (input_val == "Hallo" || input_val == "hallo") {
+                alert("Welkom");
+            }
+            if (input_val == "Doei" || input_val == "doei") {
+                alert("Tot de volgende keer.");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input type="button" value="Knop" onclick="checkinputfield()">
+    <input type="text" id="inputfield">
+</body>
+
+</html>

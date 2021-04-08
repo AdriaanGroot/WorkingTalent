@@ -1,0 +1,36 @@
+<!-- Exercise 6 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        var images = ["SeasonPics/winter.png", "SeasonPics/spring.png", "SeasonPics/summer.png", "SeasonPics/fall.png"];
+        var clickCount = 0;
+        function changePicture() {
+            clickCount += 1;
+            var imageIndex = clickCount % images.length;
+            document.getElementById("image").src = images[imageIndex];
+            if (clickCount >= 8) {
+                document.getElementById("yearCount").innerHTML = "Er zijn " + Math.floor(clickCount / 4) + " jaren voorbij.";
+            }
+            else if (clickCount >= 4) {
+                document.getElementById("yearCount").innerHTML = "Er is een jaar voorbij.";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <img id="image" src="SeasonPics/winter.png" style="height:300px">
+    <br>
+    <input type="button" value="Volgend seizoen" onclick="changePicture()">
+    <br><br>
+    <div id='yearCount'></div>
+</body>
+
+</html>

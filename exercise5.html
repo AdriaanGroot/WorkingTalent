@@ -1,0 +1,37 @@
+<!-- Exercise 5 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        var buttonBooleans = [0,0,0,0]
+        var buttonIds = "ABCD"
+        function checkButton(clickedId) {
+            var butBoolIndex = buttonIds.indexOf(clickedId)
+            document.getElementById("printButton").innerHTML += "U heeft op knop " + clickedId + " geklikt." + "<br>";
+            if (buttonBooleans[butBoolIndex] > 0){
+                alert("U heeft al " + buttonBooleans[butBoolIndex] + " keer op " + clickedId + " geklikt.");
+            }
+            buttonBooleans[butBoolIndex] += 1;
+        }
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td> <input type="button" value="A" onclick="checkButton(this.id)" id="A"> </td>
+            <td> <input type="button" value="B" onclick="checkButton(this.id)" id="B"> </td>
+            <td> <input type="button" value="C" onclick="checkButton(this.id)" id="C"> </td>
+            <td> <input type="button" value="D" onclick="checkButton(this.id)" id="D"> </td>
+        </tr>
+    </table>
+    <div id="printButton"> </div>
+</body>
+
+</html>

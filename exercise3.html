@@ -1,0 +1,47 @@
+<!-- Exercise 3 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function checkForLetter() {
+            var wordStr = document.getElementById("inWord").value;
+            var letterStr = document.getElementById("inLetter").value;
+            var letterCount = 0;
+            var l;
+            for (l in wordStr) {
+                if (wordStr[l] == letterStr) { // Note: because length(wordStr[l])=1, this also filters inLetter input of >1
+                    letterCount += 1
+                }
+            }
+            if (letterCount == 1) {
+                alert("Er zit " + letterCount + " " + letterStr + " in dit woord");
+            }
+            else if (letterCount > 1) {
+                alert("Er zitten " + letterCount + " " + letterStr + "'s" + " in dit woord.");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td> </td>
+            <td> Woord </td>
+            <td> Letter </td>
+        </tr>
+        <tr>
+            <td> <input type="button" value="Knop" onclick="checkForLetter()"> </td>
+            <td> <input type="text" id="inWord"> </td>
+            <td> <input type="text" id="inLetter"> </td>
+        </tr>
+    </table>
+</body>
+
+</html>

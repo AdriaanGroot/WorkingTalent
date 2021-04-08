@@ -1,0 +1,48 @@
+<!-- Exercise 7 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        img {
+            height: 200px;
+        }
+
+        td.imageCell {
+            min-width: 330px;
+        }
+    </style>
+
+    <script>
+        var images = ["SeasonPics/winter.png", "SeasonPics/spring.png", "SeasonPics/summer.png", "SeasonPics/fall.png"];
+        var clickCount = 0;
+        function changePicture() {
+            clickCount += 1;
+            var imageIndex = clickCount % images.length;
+            document.getElementById("AFBA").src = images[imageIndex];
+            if (imageIndex == 1){
+                document.getElementById("AFBB").src = "SeasonPics/yeslamb.png";
+            }
+            else{
+                document.getElementById("AFBB").src = "SeasonPics/nolamb.png";
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td class="imageCell"> <img id="AFBA" src="SeasonPics/winter.png" onclick="changePicture()"> </td>
+            <td class="imageCell"> <img id="AFBB" src="SeasonPics/nolamb.png"> </td>
+        </tr>
+    </table>
+</body>
+
+</html>

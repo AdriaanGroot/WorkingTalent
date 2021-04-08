@@ -1,0 +1,63 @@
+<!-- Exercise 7 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        img {
+            height: 200px;
+        }
+
+        td.imageCell {
+            min-width: 330px;
+        }
+    </style>
+
+    <script>
+        var images = ["SeasonPics/winter.png", "SeasonPics/spring.png", "SeasonPics/summer.png", "SeasonPics/fall.png"];
+        var clickCount1 = 0;
+        var clickCount2 = 0;
+        var imageIndex1 = 0;
+        var imageIndex2 = 0;
+        function changePicture1() {
+            clickCount1 += 1;
+            imageIndex1 = clickCount1 % images.length;
+            document.getElementById("AFBA").src = images[imageIndex1];
+        }
+        function changePicture2() {
+            clickCount2 += 1;
+            imageIndex2 = clickCount2 % images.length;
+            document.getElementById("AFBB").src = images[imageIndex2];
+        }
+        function compareSeasons() {
+            if (imageIndex1 == imageIndex2) {
+                console.log("HETZELFDE")
+            }
+            else {
+                console.log("NIET HETZELFDE")
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td class="imageCell"> <img id="AFBA" src="SeasonPics/winter.png"> </td>
+            <td class="imageCell"> <img id="AFBB" src="SeasonPics/winter.png"> </td>
+        </tr>
+        <tr>
+            <td><input type="button" value="Volgend seizoen" onclick="changePicture1()"></td>
+            <td><input type="button" value="Volgend seizoen" onclick="changePicture2()"></td>
+        </tr>
+    </table>
+    <br>
+    <input type="button" value="Vergelijk seizoenen" onclick="compareSeasons()">
+</body>
+
+</html>
