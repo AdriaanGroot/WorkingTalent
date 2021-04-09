@@ -16,32 +16,90 @@
     </style>
 
     <script>
-        var stonesInColumn = [0, 0, 0];
-        var maxStones = 2;
+        var stonesInColumn = [0, 0, 0, 0, 0, 0, 0];
+        var numOfRows = 6;
+        var numOfColumns = 7
         var colours = ["blue", "red"];
+        var coloursNed = ["blauw", "rood"];
         var colours2 = ["lightblue", "lightcoral"];
         var playerCount = 0;
         var previousColor;
+        var board = Array(numOfRows).fill().map(() => Array(numOfColumns).fill(0));
+        var transposedBoard = Array(numOfColumns).fill().map(() => Array(numOfRows).fill(0));
+        var someoneWon = 0;
         function changeColour(cellId) {
-            var column = cellId[1];
-            var row = stonesInColumn[column];
-            if (row < maxStones) {
-                document.getElementById(row + column).style.backgroundColor = colours[playerCount % 2];
-                stonesInColumn[column] += 1;
-                playerCount += 1;
+            if (someoneWon == 0) {
+                var column = cellId[1];
+                var row = stonesInColumn[column];
+                if (row < numOfRows) {
+                    document.getElementById(row + column).style.backgroundColor = colours[playerCount % 2];
+                    board[row][column] = playerCount % 2 + 1;
+                    transposedBoard[column][row] = playerCount % 2 + 1;
+                    checkwin(playerCount % 2 + 1);
+                    stonesInColumn[column] += 1;
+                    playerCount += 1;
+                }
             }
         }
         function showStone(cellId) {
-            var column = cellId[1];
-            var row = stonesInColumn[column];
-            previousColor = document.getElementById(row + column).style.backgroundColor;
-            document.getElementById(row + column).style.backgroundColor = colours2[playerCount % 2];
+            if (someoneWon == 0) {
+                var column = cellId[1];
+                var row = stonesInColumn[column];
+                if (row < numOfRows) {
+                    previousColor = document.getElementById(row + column).style.backgroundColor;
+                    document.getElementById(row + column).style.backgroundColor = colours2[playerCount % 2];
+                }
+            }
         }
-        function goBack(cellId){
-            var column = cellId[1];
-            var row = stonesInColumn[column];
-            document.getElementById(row + column).style.backgroundColor = previousColor;
-            console.log(previousColor)
+        function goBack(cellId) {
+            if (someoneWon == 0) {
+                var column = cellId[1];
+                var row = stonesInColumn[column];
+                if (row < numOfRows) {
+                    document.getElementById(row + column).style.backgroundColor = previousColor;
+                }
+            }
+        }
+        function checkwin(playerId) {
+            winCondition1(playerId, board);
+            winCondition1(playerId, transposedBoard);
+            winCondition2(playerId);
+        }
+        function winCondition1(playerId, boardType) {
+            for (b in boardType) {
+                var winCond = String([playerId, playerId, playerId, playerId]);
+                var playedRow = String(boardType[b]);
+                if (playedRow.includes(winCond)) {
+                    winConditionMet(playerId);
+                }
+            }
+        }
+        function winCondition2(playerId) {
+            var i;
+            var j;
+            for (i = 0; i < numOfColumns / 2 + 2; i++) { // +2 if odd, +1 if even
+                var diagonal = '';
+                var topDiagonal = '';
+                var transDiagonal = '';
+                var topTransDiagonal = '';
+                var playerIdStr = String(playerId)
+                var winCond = playerIdStr + playerIdStr + playerIdStr + playerIdStr;
+                for (j = 0; j < i + 1; j++) {
+                    diagonal += board[j][i - j];
+                    topDiagonal += board[numOfRows - 1 - j][numOfColumns - 1 - (i - j)];
+                    transDiagonal += board[j][(numOfColumns-1 - i) + j];
+                    topTransDiagonal += board[numOfRows - 1 - j][numOfColumns - 1 - ((numOfColumns-1 - i) + j)];
+                }
+                if (diagonal.includes(winCond) || topDiagonal.includes(winCond) || transDiagonal.includes(winCond) 
+                ||topTransDiagonal.includes(winCond)) {
+                    winConditionMet(playerId);
+                }
+            }
+        }
+        function winConditionMet(playerId) {
+            document.getElementById("displayWin").innerHTML = "Speler " + playerId + " (" + coloursNed[playerId - 1]
+                + ") heeft gewonnen.";
+            someoneWon = 1;
         }
     </script>
 
@@ -50,16 +108,104 @@
 <body>
     <table>
         <tr>
-            <td id="10" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)"> </td>
-            <td id="11" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)"> </td>
-            <td id="12" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)"> </td>
+            <td id="50" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="51" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="52" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="53" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="54" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="55" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="56" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
         </tr>
         <tr>
-            <td id="00" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)"> </td>
-            <td id="01" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)"> </td>
-            <td id="02" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)"> </td>
+            <td id="40" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="41" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="42" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="43" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="44" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="45" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="46" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+        </tr>
+        <tr>
+            <td id="30" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="31" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="32" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="33" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="34" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="35" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="36" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+        </tr>
+        <tr>
+            <td id="20" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="21" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="22" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="23" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="24" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="25" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="26" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+        </tr>
+        <tr>
+            <td id="10" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="11" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="12" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="13" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="14" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="15" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="16" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+        </tr>
+        <tr>
+            <td id="00" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="01" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="02" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="03" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="04" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="05" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
+            <td id="06" onclick="changeColour(this.id)" onmouseover="showStone(this.id)" onmouseout="goBack(this.id)">
+            </td>
         </tr>
     </table>
+    <br>
+    <div id="displayWin"></div>
 </body>
 
 </html>
