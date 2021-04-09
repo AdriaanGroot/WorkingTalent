@@ -1,1 +1,2 @@
-# wtapril7
+# Working Talent exercises
+Zie master voor uitwerkingen exercises
